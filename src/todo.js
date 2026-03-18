@@ -6,8 +6,8 @@ export class Todo {
         this.priority = priority;
     }
 
-    set priority(newPriority) {
-        if(newPriority < 0) return false;
-        this.priority = newPriority;
-    }
+    // set priority(newPriority) {
+    //     if(newPriority < 0) return false;
+    //     this.priority = newPriority;
+    // }
 }
