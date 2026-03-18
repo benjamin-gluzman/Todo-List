@@ -33,25 +33,23 @@ body {
         margin-bottom: 1rem;
     }
 
-    ul {
-        list-style-type: none;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    li {
+    .newProj {
         font-size: 2.25rem;
         padding: 10px 5px;
         border-radius: 10px;
     }
 
-    li:hover {
+    .newProj:hover {
         background-color: var(--dark-blue);
     }
 }
 
-.projects {
+.content {
     flex: 3;
     background-color: var(--third-color);
+}
+
+img {
+    width: 30px;
+    aspect-ratio: 1/1;
 }
