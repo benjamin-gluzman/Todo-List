@@ -1,9 +1,11 @@
 import { addProjectDialog, addTodoDialog } from "./create-dialog.js";
 import rightArrow from "../assets/right-arrow.svg";
 import downArrow from "../assets/down-arrow.svg";
+import plus from "../assets/plus.svg";
 
-function createTodoContainer(project) {
+function createTodoContainer(container, project) {
     const todoContainer = document.createElement("div");
+    todoContainer.classList.add("todo-container");
     
     for(const todo of project.todoList) {
         const item = document.createElement("div");
@@ -17,10 +19,21 @@ function createTodoContainer(project) {
         dueDate.textContent = todo.dueDate;
         priority.textContent = todo.priority;
 
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "X";
+
+        removeBtn.addEventListener("click", () => {
+            project.removeTodo(todo);
+            loadAll(container, project);
+        });
+
         item.appendChild(title);
         item.appendChild(description);
         item.appendChild(dueDate);
         item.appendChild(priority);
+        item.appendChild(removeBtn);
+
         todoContainer.appendChild(item);
     }
 
@@ -31,6 +44,7 @@ function loadAll(container, project) {
     container.replaceChildren();
 
     const header = document.createElement("div");
+    header.classList.add("header");
 
     const arrow = document.createElement("img");
     arrow.src = rightArrow;
@@ -39,7 +53,7 @@ function loadAll(container, project) {
     projName.textContent = project.name;
 
     const addTodoBtn = document.createElement("button");
-    addTodoBtn.textContent = "Add Todo"
+    addTodoBtn.textContent = "Add Todo";
 
     const dialog = addTodoDialog(container, project);
     document.body.appendChild(dialog);
@@ -47,9 +61,9 @@ function loadAll(container, project) {
         dialog.showModal();
     });
 
-    const todoContainer = createTodoContainer(project);
+    const todoContainer = createTodoContainer(container, project);
 
-    header.appendChild(arrow); header.appendChild(projName); header.appendChild(addTodoBtn);
+    header.appendChild(projName); header.appendChild(arrow); header.appendChild(addTodoBtn);
     container.appendChild(header);
     container.appendChild(todoContainer);
 }

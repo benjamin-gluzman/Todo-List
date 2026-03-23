@@ -20,4 +20,8 @@ export class Project {
         let todo = new Todo(title, description, dueDate, priority);
         this.#todoList.push(todo);
     }
+
+    removeTodo(todo) {
+        this.#todoList.splice(this.#todoList.indexOf(todo), 1);
+    }
 }
