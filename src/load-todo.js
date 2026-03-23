@@ -1,4 +1,4 @@
-import { addProjectDialog, addTodoDialog } from "./create-dialog.js";
+import { addTodoDialog } from "./create-dialog.js";
 import rightArrow from "../assets/right-arrow.svg";
 import downArrow from "../assets/down-arrow.svg";
 import plus from "../assets/plus.svg";
@@ -46,8 +46,6 @@ function loadAll(container, project) {
     const header = document.createElement("div");
     header.classList.add("header");
 
-    const arrow = document.createElement("img");
-    arrow.src = rightArrow;
 
     const projName = document.createElement("h1");
     projName.textContent = project.name;
@@ -63,7 +61,13 @@ function loadAll(container, project) {
 
     const todoContainer = createTodoContainer(container, project);
 
-    header.appendChild(projName); header.appendChild(arrow); header.appendChild(addTodoBtn);
+    const displayBtn = document.createElement("img");
+    displayBtn.src = rightArrow;
+    displayBtn.addEventListener("click", () => {
+        todoContainer.classList.toggle("hidden");
+    });
+
+    header.appendChild(projName); header.appendChild(displayBtn); header.appendChild(addTodoBtn);
     container.appendChild(header);
     container.appendChild(todoContainer);
 }

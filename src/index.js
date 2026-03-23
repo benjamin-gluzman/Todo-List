@@ -1,21 +1,22 @@
 import * as loader from "./load-todo.js";
 import {Project} from "./project.js";
-
-
 import "./style.css";
 
+const displayProjDialogBtn = document.querySelector(".newProj");
+const newProjBtn = document.querySelector("#createNewProjBtn");
+const dialog = document.querySelector("dialog");
 
-const body = document.body;
-const ProjBtn = document.querySelector(".newProj");
+
 const content = document.querySelector(".content");
 const projects = [];
 
 
 displayProjects();
 function displayProjects() {
-    if(projects.length == 0) {
+    if(projects.length === 0) {
         projects.push(new Project("Default Project"));
     }
+    content.replaceChildren();
 
     for(const project of projects) {
         const container = document.createElement("div");
@@ -25,6 +26,25 @@ function displayProjects() {
         content.appendChild(container);
     }
 }
+
+
+displayProjDialogBtn.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+newProjBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    const name = document.querySelector("#newProjName");
+    name.value = name.value.trim();
+    if(name.value === "")
+        return;
+
+    projects.push(new Project(name.value));
+    name.value = "";
+
+    displayProjects();
+    dialog.close();
+})
 
 
 
