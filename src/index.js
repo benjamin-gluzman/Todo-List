@@ -1,5 +1,6 @@
 import * as loader from "./load-todo.js";
-import {Project} from "./project.js";
+import { Project } from "./project.js";
+import { saveProjects, retrieveProjects } from "./storage.js";
 import "./style.css";
 
 const displayProjDialogBtn = document.querySelector(".newProj");
@@ -8,13 +9,17 @@ const dialog = document.querySelector("dialog");
 
 
 const content = document.querySelector(".content");
-const projects = [];
+let projects = [];
 
 
 displayProjects();
 function displayProjects() {
+    projects = retrieveProjects();
+    if(projects == null) projects = [];
+
     if(projects.length === 0) {
-        projects.push(new Project("Default Project"));
+        projects.push(new Project("Default Project", []));
+        saveProjects(projects);
     }
     content.replaceChildren();
 
@@ -39,32 +44,13 @@ newProjBtn.addEventListener("click", (event) => {
     if(name.value === "")
         return;
 
-    projects.push(new Project(name.value));
+    projects.push(new Project(name.value, []));
     name.value = "";
 
+    saveProjects(projects);
     displayProjects();
     dialog.close();
 })
 
 
-
-// sidebar.addEventListener("click", (event) => {
-//     switch(event.target.id) {
-//         case "all":
-//             loader.loadAll(projects);
-//             break;
-//         case "today":
-//             loader.loadToday(projects);
-//             break;
-//         case "thisWeek":
-//             loader.loadThisWeek(projects);
-//             break;
-//         case "nextWeek":
-//             loader.loadNextWeek(projects);
-//             break;
-//         case "later":
-//             loader.loadLater(projects);
-//     }
-
-    
-// });
+export { projects };

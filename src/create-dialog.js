@@ -1,3 +1,5 @@
+import { projects } from "./index.js";
+import { saveProjects, retrieveProjects } from "./storage.js";
 import {loadAll} from "./load-todo.js"
 
 function addTodoDialog(container, project) {
@@ -9,16 +11,16 @@ function addTodoDialog(container, project) {
 
     const titleLabel = document.createElement("label");
     titleLabel.textContent = "Title";
-    titleLabel.htmlFor = "title";
+    titleLabel.setAttribute("for", "title");
 
     const titleInput = document.createElement("input");
     titleInput.type = "text";
-    titleInput.id = "title"
+    titleInput.id = "title";
 
     
     const descLabel = document.createElement("label");
     descLabel.textContent = "Description";
-    descLabel.htmlFor = "desc";
+    descLabel.setAttribute("for", "desc");
 
     const descInput = document.createElement("textarea");
     descInput.rows = "4"; descInput.cols = "20";
@@ -27,7 +29,7 @@ function addTodoDialog(container, project) {
 
     const dateLabel = document.createElement("label");
     dateLabel.textContent = "Due Date";
-    dateLabel.htmlFor = "date";
+    dateLabel.setAttribute("for", "date");
 
     const dateInput = document.createElement("input");
     dateInput.type = "date";
@@ -36,7 +38,7 @@ function addTodoDialog(container, project) {
 
     const priorityLabel = document.createElement("label");
     priorityLabel.textContent = "Priority";
-    priorityLabel.htmlFor = "priority";
+    priorityLabel.setAttribute("for", "priority");
 
     const priorityInput = document.createElement("input");
     priorityInput.type = "number";
@@ -56,6 +58,7 @@ function addTodoDialog(container, project) {
         project.addNewTodo(titleInput.value, descInput.value, dateInput.value, priorityInput.value);
 
         loadAll(container, project);
+        saveProjects(projects);
 
         dialog.close();
     });
