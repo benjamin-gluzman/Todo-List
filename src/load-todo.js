@@ -1,4 +1,6 @@
+import { projects } from "./index.js";
 import { addTodoDialog } from "./create-dialog.js";
+import { saveProjects, retrieveProjects } from "./storage.js";
 import rightArrow from "../assets/right-arrow.svg";
 import downArrow from "../assets/down-arrow.svg";
 import plus from "../assets/plus.svg";
@@ -26,6 +28,7 @@ function createTodoContainer(container, project) {
         removeBtn.addEventListener("click", () => {
             project.removeTodo(todo);
             loadAll(container, project);
+            saveProjects(projects);
         });
 
         item.appendChild(title);
